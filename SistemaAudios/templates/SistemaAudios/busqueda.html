@@ -1,0 +1,158 @@
+{% extends 'SistemaAudios/plantilla.html' %}
+
+{% block title %}Busqueda{% endblock %}
+
+{% block content %}
+
+<br><h2 class="text-center pt-3">Realizar una Búsqueda</h2>
+<br>
+<form>
+    <div class="row">
+        <div class="col-lg-3 offset-md-3">
+            <label for="busqueda" class="form-label">Nombre del recurso o autor</label>
+            <input type="text" class="form-control" id="busqueda" >
+        </div>
+        <div class="col-lg-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select  id="categoria" class="form-select" aria-label="Default select example">
+                <option selected value="0">Todas</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.pk }}">{{ categoria.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <br>
+            <a onclick="buscar()" class="btn btn-primary"><i class="material-icons">search</i></a>
+        </div>
+    </div>
+</form>
+
+
+<div class="d-flex justify-content-center mt-4">
+    <div class="list-group align-self-center flex-grow-1 pe-5">
+        <div id="tabla"></div>    
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        buscar();
+    });
+
+    function buscar(){
+        var valorBusqueda = document.getElementById("busqueda").value;
+        var categoria = document.getElementById("categoria");
+        var indexCategoria = categoria.selectedIndex;
+        var opcionSeleccionada = categoria.options[indexCategoria];
+        var categoriaSeleccionada = opcionSeleccionada.value;
+
+        $("#tabla").html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'busquedaFiltro' %}",  
+            data: {
+                "valor": valorBusqueda,
+                "categoria":categoriaSeleccionada,
+            }
+        });
+        request.done(function (response) {
+            $("#tabla").html(response.respuesta);
+        });
+        return false;
+    }
+
+    function fav(id_r) {
+        $("#Fav_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'fav' %}",  
+            data: {
+                "id": id_r,
+            }
+        });
+        request.done(function (response) {
+            $("#Fav_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+    function sl(id_r) {
+        $("#Sl_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'sl' %}", 
+            data: {
+                "id": id_r,
+            }
+        });
+        request.done(function (response) {
+            $("#Sl_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+    function addFav(id_r) {
+        $("#Fav_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'add_fav' %}",  
+            data: {
+                "id": id_r,
+            }
+        });
+        request.done(function (response) {
+            $("#Fav_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+    function addSl(id_r) {
+        $("#Sl_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'add_sl' %}", 
+            data: {
+                "id": id_r,
+            },
+        });
+        request.done(function (response) {
+            $("#Sl_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+    function delFav(id_r) {
+        $("#Fav_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'del_fav' %}", 
+            data: {
+                "id": id_r,
+            },
+        });
+        request.done(function (response) {
+            $("#Fav_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+    function delSl(id_r) {
+        $("#Sl_"+id_r).html("");
+        var request = $.ajax({
+            type: "GET",
+            url: "{% url 'del_sl' %}",  
+            data: {
+                "id": id_r,
+            },
+        });
+        request.done(function (response) {
+            $("#Sl_"+id_r).html(response.boton);
+        });
+        return false;
+    }
+
+</script>
+{% endblock %}
