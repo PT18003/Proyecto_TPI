@@ -3,7 +3,7 @@
 {% block title %}Recurso{% endblock %}
 
 {% block content %}
-<a href="{% url 'mis_recursos' %}" class="btn btn-link my-1 ps-0">Regresar</a>
+
 <br>
 <form  method="post" class="my-2 pe-5" enctype="multipart/form-data">
     {% csrf_token %}
@@ -15,10 +15,11 @@
             {{ field }}
         </div>
     </div>
-    {% endfor %}
-    <input type="submit" class="btn btn-secondary" value="Hecho">
+     {% endfor %}
+    <input type="submit" class="btn btn-primary" value="Hecho">
     {% if object%}
-    <a class="btn btn-link mx-2" href="{% url 'eliminar' recurso.pk%}">Eliminar</a>
+    <a class="btn btn-dark" href="{% url 'eliminar' recurso.pk%}">Eliminar</a>
     {% endif %}
+    <a href="{% url 'mis_recursos' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}

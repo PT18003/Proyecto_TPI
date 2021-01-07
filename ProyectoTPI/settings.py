@@ -28,7 +28,7 @@ SECRET_KEY = 'r508#k@)jn*x4&%$=os@-zrx!k+f+8%)j^k7&n2=@3&(!b+&3w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['206.81.9.193']
+ALLOWED_HOSTS = ['*']
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -87,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'audios',
         'USER' : 'postgres', #usuario postgres (o puedes crear uno propio)
-        'PASSWORD' : '123456', #contraseña de usuario postgres u otro
+        'PASSWORD' : 'administrador', #contraseña de usuario postgres u otro
         'HOST' : 'localhost',
-        'PORT' : 5432,
+        'PORT' : 5433,
     }
 }
 
