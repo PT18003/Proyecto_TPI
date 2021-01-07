@@ -150,3 +150,5 @@ EMAIL_HOST_PASSWORD = 'BeatCloud123#'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #django_heroku.settings(locals())
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10000000
